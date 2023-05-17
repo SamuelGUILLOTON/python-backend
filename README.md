@@ -3,8 +3,9 @@ Ceci est application fait dans le cadre du cours de python d'efficom. Elle perme
 
 ## Getting started
 installation sans docker.
-pour installer les dépendances: pip install -r requirements.txt
-pour lancer le serveur : python -m uvicorn main:app --reload
+- pour installer les dépendances: pip install -r requirements.txt
+
+- pour lancer le serveur : python -m uvicorn main:app --reload
 et go to http://localhost:8000/doc 
 
 # Database information
