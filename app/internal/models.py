@@ -17,6 +17,7 @@ userNotification = Table('userNotification', Base.metadata,
     Column('user_id', ForeignKey('user.id'), primary_key=True)
 )
 
+#Définition de mes tables sqlAlchemy
 class RoleEnum(Enum):
     ADMIN = "ADMIN"
     MAINTAINER = "MAINTAINER"

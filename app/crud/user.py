@@ -11,6 +11,7 @@ from internal.hash_pwd import hash_password
 def get_users(db: Session):
     users = db.query(User).all()
     decrypted_users = []
+    #je decrypt toute les donnés encryptés 
     for user in users:
         decrypted_user = User(
             id=user.id,
@@ -81,7 +82,7 @@ def update_user(db: Session, NewEditUser: EditUser, userId: int):
     db_user.lastname_hash = encrypt(NewEditUser.lastname_hash) if NewEditUser.lastname_hash != "string" else db_user.lastname_hash
     db_user.firstname_hash = encrypt(NewEditUser.firstname_hash) if NewEditUser.firstname_hash != "string" else db_user.firstname_hash
     db_user.mail_hash = encrypt(NewEditUser.mail_hash) if NewEditUser.mail_hash != "string" else db_user.mail_hash
-    db_user.role = NewEditUser.role if NewEditUser.role != "string" else db_user.role
+    db_user.role = NewEditUser.role if NewEditUser.role != "USER" else db_user.role
     db_user.password_hash = hash_password(NewEditUser.password_hash) if NewEditUser.password_hash != "string" else db_user.password_hash
     db.commit()
     db.refresh(db_user)
@@ -91,7 +92,8 @@ def get_users_by_company(companyId: int, db: Session):
     users = db.query(User).filter_by(company_id=companyId).all()
     decrypted_users = []
     for user in users:
-        decrypted_user = EditUser(
+        decrypted_user = User(
+            id=user.id,
             lastname_hash=decrypt(user.lastname_hash),
             firstname_hash=decrypt(user.firstname_hash),
             mail_hash=decrypt(user.mail_hash),

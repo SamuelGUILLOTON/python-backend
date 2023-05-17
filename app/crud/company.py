@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from internal.models import Company
 from models.company import Company as CompanyShema, EditCompany
 
+#Récupérer l'ntreprise avec un Id
 def get_company_by_id(db: Session, company_id: int):
     return  db.query(Company).filter(Company.id == company_id).first()
 
