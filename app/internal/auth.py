@@ -26,8 +26,10 @@ def get_db():
     finally:
         db.close()
 
+# Clé JWT pour la création et la validation des tokens
 JWT_KEY = "apzoapzoeziueipuzeredsdf"
 
+# Fonction pour décoder un token JWT et renvoyer l'utilisateur correspondant
 async def decode_token(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -43,7 +45,7 @@ async def decode_token(token: Annotated[str, Depends(oauth2_scheme)], db: Sessio
         return credentials_exception
     return user
 
-
+# Route pour la connexion
 @router.post("/login")
 async def login(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
     users = [user.__dict__ for user in userCRUD.get_users(db)]
@@ -52,10 +54,12 @@ async def login(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestF
         print(user)
         print(form_data.password)
         print(hash_password(form_data.password))
+        # Vérification de l'adresse e-mail et du mot de passe
         if user["mail_hash"] == form_data.username and user["password_hash"] == hash_password(form_data.password):
             data = dict()
             data["id"] = user["id"]
+            # Création d'un token JWT pour l'utilisateur authentifié
             jwt_token = jwt.encode(data, JWT_KEY, algorithm="HS256")
             return {"access_token": jwt_token, "token_type": "bearer"}
-        else:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect username or password")
+    # Si l'adresse e-mail ou le mot de passe est incorrect   
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect username or password")
