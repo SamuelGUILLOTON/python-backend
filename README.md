@@ -8,7 +8,7 @@ pour lancer le serveur : python -m uvicorn main:app --reload
 et go to http://localhost:8000/doc 
 
 # Database information
-![image bdd]([https://i.ibb.co/5c2vn6L/nom-de-l-image.jpg](https://i.imgur.com/KP34FGN.png)
+![Image](https://i.imgur.com/KP34FGN.png)
 
 # Table USER
 
