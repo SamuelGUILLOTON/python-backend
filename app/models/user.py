@@ -24,7 +24,7 @@ class EditUser(BaseModel):
     lastname_hash: str
     firstname_hash: str
     mail_hash: str
-    role: str
+    role: UserRole
     password_hash: str
 
     class Config:

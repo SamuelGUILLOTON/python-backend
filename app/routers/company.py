@@ -57,7 +57,7 @@ async def update_company(companyId: int, EditCompany: EditCompany, db: Session =
 
 @router.get("/users/company/{companyId}")
 async def users_by_company(companyId: int, db: Session = Depends(get_db), auth: Annotated[User, Depends(decode_token)] = None ) -> list[userSchema]:
-    if (auth["role"] != "MAINTAINER" and auth["role"] != "ADMIN"):
+    if (auth["role"] != "MAINTAINER" and auth["role"] != "ADMIN" or auth["company_id"] != companyId):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
     users = userCRUD.get_users_by_company(companyId, db)
