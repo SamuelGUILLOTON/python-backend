@@ -1,30 +1,31 @@
 #system import
 from enum import Enum
+#Libs imports
 from pydantic import BaseModel
 
-from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import mapped_column
+class UserRole(str, Enum):
+    user = "USER"
+    admin = "ADMIN"
+    maintainer = "MAINTAINER"
 
+class User(BaseModel):
+    id: int
+    lastname_hash: str
+    firstname_hash: str
+    mail_hash: str
+    company_id: str
+    role: UserRole
+    password_hash: str
 
-Base = declarative_base()
+    class Config:
+        orm_mode = True
 
-class RoleEnum(Enum):
-    ADMIN = "ADMIN"
-    MAINTAINER = "MAINTAINER"
-    USER = "USER"
+class EditUser(BaseModel):
+    lastname_hash: str
+    firstname_hash: str
+    mail_hash: str
+    role: str
+    password_hash: str
 
-class User(Base):
-    __tablename__ = "user"
-
-    id = Column(Integer, primary_key=True)
-    lastname_hash = Column(String)
-    firstname_hash = Column(String)
-    mail_hash = Column(String)
-    company_id = Column(Integer)
-    role = Column(String)
-    password_hash = Column(String)
-
-    def save(self, session):
-        session.add(self)
-        session.commit()
+    class Config:
+        orm_mode = True
