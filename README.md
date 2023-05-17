@@ -1,4 +1,4 @@
-# PYTHON_BACKEN
+# PYTHON_BACKEND
 Ceci est application fait dans le cadre du cours de python d'efficom. Elle permet à des entreprises et des utilisateurs de gérer leur planning. 
 
 ## Getting started
