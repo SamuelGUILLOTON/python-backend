@@ -8,6 +8,10 @@ installation sans docker.
 - pour lancer le serveur : python -m uvicorn main:app --reload
 et go to http://localhost:8000/doc 
 
+Lien vers la BDD en ligne : https://phpmyadmin.alwaysdata.com/
+credential :
+username : GUILLOTON_10
+pwd: Ferrari59139
 # Database information
 ![Image](https://i.imgur.com/KP34FGN.png)
 
